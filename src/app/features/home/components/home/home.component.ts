@@ -17,24 +17,53 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {AttestationSelectableModelService} from '@app/core/services/attestation-selectable-model.service';
 import { OpenLogsComponent } from '@app/shared/elements/open-logs/open-logs.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatButtonModule} from '@angular/material/button';
+import {FormBuilder, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';
+import {MatRadioModule} from "@angular/material/radio";
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 @Component({
 	standalone: true,
-	imports: [
-		CommonModule,
-		MatTabsModule,
-		RadioGroupComponent,
-		SharedModule,
-		InputSchemeComponent,
-		WalletLayoutComponent,
-		OpenLogsComponent,
-		MatDialogModule
-	],
+  imports: [
+    CommonModule,
+    MatTabsModule,
+    RadioGroupComponent,
+    SharedModule,
+    InputSchemeComponent,
+    WalletLayoutComponent,
+    OpenLogsComponent,
+    MatDialogModule,
+    MatInputModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatCheckboxModule
+  ],
 	templateUrl: './home.component.html',
 	styleUrls: ['./home.component.scss'],
-	providers: [OnlineAuthenticationSIOPService, HomeService, MatDialog],
+	providers: [
+    OnlineAuthenticationSIOPService,
+    HomeService,
+    MatDialog
+    ],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
+
+  selected: MenuOption[] = [];
+  private _formBuilder = inject(FormBuilder);
+
+  formGroup = this._formBuilder.group({
+    selectAttestationCtrl: ['', Validators.required]
+  });
 
 	actions: BodyAction[] = HOME_ACTIONS;
 	optionsCustomRequest: MenuOption[] = [];

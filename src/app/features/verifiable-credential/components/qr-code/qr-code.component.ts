@@ -138,9 +138,7 @@ export class QrCodeComponent implements OnInit, OnDestroy {
   	}
   }
   private buildQrCode (data: {client_id: string, request_uri: string, transaction_id: string}): string {
-  	let builtURL = `${environment.apiUrl}?client_id=${data.client_id}&request_uri=${encodeURIComponent(data.request_uri)}`;
-  	builtURL = builtURL.replace('https://', this.scheme);
-  	return builtURL;
+    return `${this.scheme}?client_id=${data.client_id}&request_uri=${encodeURIComponent(data.request_uri)}`;
   }
 
   goToLink (url: string) {
